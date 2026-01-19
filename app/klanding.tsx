@@ -5,12 +5,16 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   Code2,
-  Lightbulb,
+  Rocket,
   Users,
   Zap,
   CheckCircle2,
   Menu,
   X,
+  Github,
+  Sparkles,
+  Box,
+  Award,
 } from "lucide-react";
 
 export default function KinexaLanding() {
@@ -19,53 +23,60 @@ export default function KinexaLanding() {
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   };
 
   const staggerContainer = {
     animate: {
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.08,
       },
     },
   };
 
   return (
-    <div className="min-h-screen bg-[#0c0c0f] text-[#d7d7d7]">
+    <div className="min-h-screen bg-[#0c0c0f] text-white relative overflow-hidden">
+      {/* Gradient Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#181a41] opacity-10 blur-[120px] rounded-full"></div>
+        <div className="absolute top-1/3 right-0 w-[600px] h-[600px] bg-[#181a41] opacity-20 blur-[100px] rounded-full"></div>
+      </div>
+
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-[#181a41]/95 backdrop-blur-sm z-50 border-b border-[#ff5b04]/20">
+      <nav className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-md bg-[#0c0c0f]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-[#ff5b04] transform rotate-45"></div>
-              <span className="text-2xl font-bold text-white">kinexa</span>
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 bg-gradient-to-br from-[#ff5b04] to-[#ff8c42] transform rotate-45 rounded-sm"></div>
+              <span className="text-xl font-bold tracking-tight">kinexa</span>
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
+            <div className="hidden md:flex items-center gap-8">
               <a
                 href="#productos"
-                className="hover:text-[#ff5b04] transition-colors"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
               >
                 Productos
               </a>
               <a
                 href="#servicios"
-                className="hover:text-[#ff5b04] transition-colors"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
               >
                 Servicios
               </a>
               <a
                 href="#nosotros"
-                className="hover:text-[#ff5b04] transition-colors"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
               >
                 Nosotros
               </a>
               <a
                 href="#contacto"
-                className="bg-[#ff5b04] text-white px-6 py-2 rounded-md hover:bg-[#ff5b04]/90 transition-colors"
+                className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-all"
               >
                 Contacto
+                <ArrowRight size={16} />
               </a>
             </div>
 
@@ -82,32 +93,32 @@ export default function KinexaLanding() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="md:hidden bg-[#181a41] border-t border-[#ff5b04]/20"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            className="md:hidden border-t border-white/10 bg-[#0c0c0f]"
           >
             <div className="px-4 py-4 space-y-3">
               <a
                 href="#productos"
-                className="block hover:text-[#ff5b04] transition-colors"
+                className="block text-gray-400 hover:text-white transition-colors py-2"
               >
                 Productos
               </a>
               <a
                 href="#servicios"
-                className="block hover:text-[#ff5b04] transition-colors"
+                className="block text-gray-400 hover:text-white transition-colors py-2"
               >
                 Servicios
               </a>
               <a
                 href="#nosotros"
-                className="block hover:text-[#ff5b04] transition-colors"
+                className="block text-gray-400 hover:text-white transition-colors py-2"
               >
                 Nosotros
               </a>
               <a
                 href="#contacto"
-                className="block bg-[#ff5b04] text-white px-6 py-2 rounded-md text-center hover:bg-[#ff5b04]/90 transition-colors"
+                className="block bg-white text-black px-4 py-2 rounded-lg text-center font-medium hover:bg-gray-100 transition-all"
               >
                 Contacto
               </a>
@@ -117,261 +128,388 @@ export default function KinexaLanding() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative pt-24 pb-32 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
           <motion.div
-            className="text-center"
+            className="text-center space-y-8"
             initial="initial"
             animate="animate"
             variants={staggerContainer}
           >
-            <motion.h1
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6"
-              variants={fadeInUp}
-            >
-              Diseñamos, construimos y escalamos{" "}
-              <span className="text-[#ff5b04]">productos digitales</span>
-            </motion.h1>
+            {/* Badge */}
+            <motion.div variants={fadeInUp} className="inline-flex">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm backdrop-blur-sm">
+                <Sparkles size={14} className="text-[#ff5b04]" />
+                <span className="text-gray-300">
+                  Soluciones digitales de próxima generación
+                </span>
+              </div>
+            </motion.div>
 
-            <motion.p
-              className="text-xl sm:text-2xl text-[#d7d7d7]/80 mb-12 max-w-3xl mx-auto"
-              variants={fadeInUp}
-            >
-              que mejoran la forma en que las personas trabajan y viven
-            </motion.p>
+            {/* Main Heading */}
+            <motion.div variants={fadeInUp} className="space-y-6">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
+                Construimos productos
+                <br />
+                <span className="bg-gradient-to-r from-[#ff5b04] to-[#ff8c42] bg-clip-text text-transparent">
+                  que importan
+                </span>
+              </h1>
 
+              <p className="text-xl sm:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                Transformamos ideas en soluciones tecnológicas eficientes.
+                Desarrollamos software que realmente resuelve problemas.
+              </p>
+            </motion.div>
+
+            {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center"
               variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
+              <a
+                href="#contacto"
+                className="group inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-all"
+              >
+                Comenzar proyecto
+                <ArrowRight
+                  size={18}
+                  className="group-hover:translate-x-1 transition-transform"
+                />
+              </a>
               <a
                 href="#productos"
-                className="bg-[#ff5b04] text-white px-8 py-4 rounded-md font-semibold hover:bg-[#ff5b04]/90 transition-colors inline-flex items-center justify-center"
+                className="inline-flex items-center gap-2 border border-white/10 px-6 py-3 rounded-lg font-medium hover:bg-white/5 transition-all"
               >
                 Ver productos
-                <ArrowRight className="ml-2" size={20} />
               </a>
-              <a
-                href="#servicios"
-                className="border-2 border-[#ff5b04] text-white px-8 py-4 rounded-md font-semibold hover:bg-[#ff5b04]/10 transition-colors inline-flex items-center justify-center"
-              >
-                Desarrollo a medida
-              </a>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              variants={fadeInUp}
+              className="pt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto border-t border-white/10 mt-16"
+            >
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white mb-1">2+</div>
+                <div className="text-sm text-gray-400">Productos SaaS</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white mb-1">100%</div>
+                <div className="text-sm text-gray-400">
+                  Orientado a resultados
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white mb-1">24/7</div>
+                <div className="text-sm text-gray-400">Soporte dedicado</div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Value Proposition */}
-      <section className="py-20 bg-[#181a41]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+      {/* Features Grid */}
+      <section className="relative py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">
-              Creamos productos. Y cuando el problema lo requiere,{" "}
-              <span className="text-[#ff5b04]">
-                creamos la solución exacta para vos
-              </span>
+              Dos formas de trabajar con nosotros
             </h2>
-          </motion.div>
+            <p className="text-xl text-gray-400">
+              Elige la opción que mejor se adapte a tu necesidad
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Productos Propios Card */}
             <motion.div
-              className="bg-[#0c0c0f] p-8 rounded-lg border border-[#ff5b04]/20"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5 }}
+              className="group relative p-8 rounded-2xl bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10 hover:border-[#ff5b04]/50 transition-all duration-300"
             >
-              <Code2 className="text-[#ff5b04] mb-4" size={40} />
-              <h3 className="text-2xl font-bold mb-4">Productos propios</h3>
-              <p className="text-[#d7d7d7]/80 mb-4">
-                Desarrollamos soluciones SaaS enfocadas en resolver problemas
-                reales con conocimiento profundo del mercado.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <CheckCircle2
-                    className="text-[#ff5b04] mr-2 mt-1 flex-shrink-0"
-                    size={20}
-                  />
-                  <span>NutriOne - Gestión para nutricionistas</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle2
-                    className="text-[#ff5b04] mr-2 mt-1 flex-shrink-0"
-                    size={20}
-                  />
-                  <span>Kinexis - Gestión integral para gimnasios</span>
-                </li>
-              </ul>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#ff5b04]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              <div className="relative space-y-4">
+                <div className="w-12 h-12 rounded-xl bg-[#ff5b04]/10 flex items-center justify-center">
+                  <Box className="text-[#ff5b04]" size={24} />
+                </div>
+
+                <h3 className="text-2xl font-bold">Productos Propios</h3>
+
+                <p className="text-gray-400 leading-relaxed">
+                  Soluciones SaaS listas para usar, diseñadas con conocimiento
+                  profundo del mercado y optimizadas para casos de uso
+                  específicos.
+                </p>
+
+                <div className="space-y-3 pt-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2
+                      className="text-[#ff5b04] flex-shrink-0 mt-0.5"
+                      size={20}
+                    />
+                    <span className="text-sm text-gray-300">
+                      <strong>NutriOne</strong> - Gestión completa para
+                      nutricionistas
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2
+                      className="text-[#ff5b04] flex-shrink-0 mt-0.5"
+                      size={20}
+                    />
+                    <span className="text-sm text-gray-300">
+                      <strong>Kinexis</strong> - Suite integral para gimnasios
+                    </span>
+                  </div>
+                </div>
+
+                <a
+                  href="#productos"
+                  className="inline-flex items-center gap-2 text-[#ff5b04] hover:gap-3 transition-all mt-4"
+                >
+                  Ver productos
+                  <ArrowRight size={16} />
+                </a>
+              </div>
             </motion.div>
 
+            {/* Desarrollo a Medida Card */}
             <motion.div
-              className="bg-[#0c0c0f] p-8 rounded-lg border border-[#ff5b04]/20"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="group relative p-8 rounded-2xl bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10 hover:border-[#ff5b04]/50 transition-all duration-300"
             >
-              <Lightbulb className="text-[#ff5b04] mb-4" size={40} />
-              <h3 className="text-2xl font-bold mb-4">Desarrollo a medida</h3>
-              <p className="text-[#d7d7d7]/80 mb-4">
-                Construimos soluciones digitales personalizadas con la misma
-                calidad que nuestros propios productos.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <CheckCircle2
-                    className="text-[#ff5b04] mr-2 mt-1 flex-shrink-0"
-                    size={20}
-                  />
-                  <span>Mentalidad de producto en cada proyecto</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle2
-                    className="text-[#ff5b04] mr-2 mt-1 flex-shrink-0"
-                    size={20}
-                  />
-                  <span>Soluciones escalables y mantenibles</span>
-                </li>
-              </ul>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#ff5b04]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              <div className="relative space-y-4">
+                <div className="w-12 h-12 rounded-xl bg-[#ff5b04]/10 flex items-center justify-center">
+                  <Code2 className="text-[#ff5b04]" size={24} />
+                </div>
+
+                <h3 className="text-2xl font-bold">Desarrollo a Medida</h3>
+
+                <p className="text-gray-400 leading-relaxed">
+                  Creamos la solución exacta que tu negocio necesita, con la
+                  misma calidad y atención al detalle de nuestros productos.
+                </p>
+
+                <div className="space-y-3 pt-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2
+                      className="text-[#ff5b04] flex-shrink-0 mt-0.5"
+                      size={20}
+                    />
+                    <span className="text-sm text-gray-300">
+                      Mentalidad de producto en cada proyecto
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2
+                      className="text-[#ff5b04] flex-shrink-0 mt-0.5"
+                      size={20}
+                    />
+                    <span className="text-sm text-gray-300">
+                      Arquitectura escalable y mantenible
+                    </span>
+                  </div>
+                </div>
+
+                <a
+                  href="#contacto"
+                  className="inline-flex items-center gap-2 text-[#ff5b04] hover:gap-3 transition-all mt-4"
+                >
+                  Solicitar cotización
+                  <ArrowRight size={16} />
+                </a>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Products Section */}
-      <section id="productos" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl font-bold mb-4">Nuestros productos</h2>
-            <p className="text-xl text-[#d7d7d7]/80">
-              Simplificamos la gestión para que puedas enfocarte en lo
+      {/* Products Showcase */}
+      <section id="productos" className="relative py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Nuestros Productos</h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Software diseñado para profesionales que quieren enfocarse en lo
               importante
             </p>
-          </motion.div>
+          </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* NutriOne */}
             <motion.div
-              className="bg-[#181a41] p-8 rounded-lg border border-[#ff5b04]/20 hover:border-[#ff5b04]/40 transition-colors"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              className="group relative p-8 rounded-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 hover:border-white/20 transition-all duration-300"
             >
-              <h3 className="text-3xl font-bold mb-4 text-[#ff5b04]">
-                NutriOne
-              </h3>
-              <p className="text-[#d7d7d7]/80 mb-6">
-                Plataforma de gestión para nutricionistas que centraliza
-                pacientes, planes, seguimiento y administración.
-              </p>
-              <a
-                href="#"
-                className="inline-flex items-center text-[#ff5b04] hover:text-[#ff5b04]/80 transition-colors"
-              >
-                Conocer más
-                <ArrowRight className="ml-2" size={20} />
-              </a>
+              <div className="space-y-6">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff5b04]/10 border border-[#ff5b04]/20 text-xs font-medium text-[#ff5b04] mb-4">
+                      Health Tech
+                    </div>
+                    <h3 className="text-3xl font-bold mb-2">NutriOne</h3>
+                  </div>
+                </div>
+
+                <p className="text-gray-400 text-lg leading-relaxed">
+                  Plataforma completa de gestión para nutricionistas. Centraliza
+                  pacientes, planes nutricionales, seguimiento y administración
+                  en un solo lugar.
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 pt-4">
+                  <div className="space-y-1">
+                    <div className="text-2xl font-bold text-white">∞</div>
+                    <div className="text-sm text-gray-400">Pacientes</div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-2xl font-bold text-white">24/7</div>
+                    <div className="text-sm text-gray-400">Disponible</div>
+                  </div>
+                </div>
+
+                <a
+                  href="#"
+                  className="group/link inline-flex items-center gap-2 text-white hover:text-[#ff5b04] transition-colors mt-4"
+                >
+                  Conocer más
+                  <ArrowRight
+                    size={16}
+                    className="group-hover/link:translate-x-1 transition-transform"
+                  />
+                </a>
+              </div>
             </motion.div>
 
+            {/* Kinexis */}
             <motion.div
-              className="bg-[#181a41] p-8 rounded-lg border border-[#ff5b04]/20 hover:border-[#ff5b04]/40 transition-colors"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ delay: 0.1 }}
+              className="group relative p-8 rounded-2xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 hover:border-white/20 transition-all duration-300"
             >
-              <h3 className="text-3xl font-bold mb-4 text-[#ff5b04]">
-                Kinexis
-              </h3>
-              <p className="text-[#d7d7d7]/80 mb-6">
-                SaaS de gestión integral para gimnasios, enfocado en operación,
-                clientes y crecimiento del negocio.
-              </p>
-              <a
-                href="#"
-                className="inline-flex items-center text-[#ff5b04] hover:text-[#ff5b04]/80 transition-colors"
-              >
-                Conocer más
-                <ArrowRight className="ml-2" size={20} />
-              </a>
+              <div className="space-y-6">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff5b04]/10 border border-[#ff5b04]/20 text-xs font-medium text-[#ff5b04] mb-4">
+                      Fitness Tech
+                    </div>
+                    <h3 className="text-3xl font-bold mb-2">Kinexis</h3>
+                  </div>
+                </div>
+
+                <p className="text-gray-400 text-lg leading-relaxed">
+                  Suite de gestión integral para gimnasios. Optimiza
+                  operaciones, gestión de clientes y crecimiento del negocio
+                  desde una plataforma unificada.
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 pt-4">
+                  <div className="space-y-1">
+                    <div className="text-2xl font-bold text-white">360°</div>
+                    <div className="text-sm text-gray-400">Control total</div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-2xl font-bold text-white">
+                      Real-time
+                    </div>
+                    <div className="text-sm text-gray-400">Analytics</div>
+                  </div>
+                </div>
+
+                <a
+                  href="#"
+                  className="group/link inline-flex items-center gap-2 text-white hover:text-[#ff5b04] transition-colors mt-4"
+                >
+                  Conocer más
+                  <ArrowRight
+                    size={16}
+                    className="group-hover/link:translate-x-1 transition-transform"
+                  />
+                </a>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Differentiators */}
-      <section className="py-20 bg-[#181a41]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl font-bold mb-4">¿Por qué elegirnos?</h2>
-          </motion.div>
+      {/* Why Choose Us */}
+      <section className="relative py-24 px-4 sm:px-6 lg:px-8 border-t border-white/10">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">¿Por qué Kinexa?</h2>
+            <p className="text-xl text-gray-400">
+              No solo desarrollamos software, construimos soluciones que
+              funcionan
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Zap size={40} />,
-                title: "Experiencia real",
+                icon: <Rocket size={24} />,
+                title: "Experiencia Real",
                 description:
-                  "No solo desarrollamos para otros: usamos lo que creamos",
+                  "Usamos nuestros propios productos. Conocemos los desafíos desde adentro.",
               },
               {
-                icon: <Code2 size={40} />,
-                title: "Calidad sin concesiones",
-                description: "Nivel de producto comercial en cada entrega",
-              },
-              {
-                icon: <Users size={40} />,
-                title: "Socios tecnológicos",
-                description: "Nos involucramos profundamente en tu negocio",
-              },
-              {
-                icon: <Lightbulb size={40} />,
-                title: "Mentalidad de producto",
+                icon: <Award size={24} />,
+                title: "Calidad Premium",
                 description:
-                  "Pensamos en usabilidad, escalabilidad y mantenimiento",
+                  "Cada proyecto recibe el mismo nivel de excelencia que nuestros productos comerciales.",
               },
               {
-                icon: <CheckCircle2 size={40} />,
-                title: "Innovación práctica",
-                description: "Tecnología de vanguardia que realmente funciona",
+                icon: <Users size={24} />,
+                title: "Partner Tecnológico",
+                description:
+                  "No somos solo proveedores, somos tu equipo de confianza a largo plazo.",
               },
               {
-                icon: <ArrowRight size={40} />,
-                title: "Visión de largo plazo",
-                description: "Construimos para hoy, pensando en el futuro",
+                icon: <Zap size={24} />,
+                title: "Innovación Práctica",
+                description:
+                  "Tecnología de vanguardia aplicada a resolver problemas reales del negocio.",
               },
-            ].map((item, index) => (
+              {
+                icon: <Code2 size={24} />,
+                title: "Código Limpio",
+                description:
+                  "Arquitectura escalable, mantenible y siguiendo las mejores prácticas.",
+              },
+              {
+                icon: <Sparkles size={24} />,
+                title: "Visión a Futuro",
+                description:
+                  "Construimos pensando en el crecimiento y evolución de tu negocio.",
+              },
+            ].map((feature, index) => (
               <motion.div
                 key={index}
-                className="bg-[#0c0c0f] p-6 rounded-lg border border-[#ff5b04]/20"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ delay: index * 0.1 }}
+                className="group p-6 rounded-xl bg-white/[0.02] border border-white/10 hover:border-white/20 hover:bg-white/[0.04] transition-all duration-300"
               >
-                <div className="text-[#ff5b04] mb-4">{item.icon}</div>
-                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-[#d7d7d7]/80">{item.description}</p>
+                <div className="w-12 h-12 rounded-lg bg-[#ff5b04]/10 flex items-center justify-center text-[#ff5b04] mb-4 group-hover:scale-110 transition-transform">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {feature.description}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -379,141 +517,150 @@ export default function KinexaLanding() {
       </section>
 
       {/* About Section */}
-      <section id="nosotros" className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section
+        id="nosotros"
+        className="relative py-24 px-4 sm:px-6 lg:px-8 border-t border-white/10"
+      >
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            className="text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            className="text-center space-y-6"
           >
-            <h2 className="text-4xl font-bold mb-8">¿Por qué nace Kinexa?</h2>
-            <p className="text-xl text-[#d7d7d7]/80 mb-6">
-              Kinexa nace de la experiencia de crear software y ver una
-              constante: muchas soluciones funcionan técnicamente, pero no
-              ayudan realmente a las personas que las usan.
-            </p>
-            <p className="text-xl text-[#d7d7d7]/80 mb-6">
-              Por eso decidimos construir nuestros propios productos,
-              entendiendo el problema desde adentro, y al mismo tiempo ayudar a
-              otros negocios a crear soluciones digitales bien pensadas.
-            </p>
-            <p className="text-xl text-[#d7d7d7]/80">
-              Hoy Kinexa desarrolla productos propios como NutriOne y Kinexis, y
-              también trabaja como partner tecnológico para empresas que
-              necesitan soluciones a medida. Siempre con el mismo objetivo:{" "}
-              <span className="text-[#ff5b04] font-semibold">
-                crear tecnología funcional, cercana y con impacto real
-              </span>
-              .
-            </p>
+            <h2 className="text-4xl font-bold">El origen de Kinexa</h2>
+
+            <div className="space-y-4 text-lg text-gray-400 leading-relaxed">
+              <p>
+                Kinexa nace de una observación simple pero poderosa: muchas
+                soluciones de software funcionan técnicamente, pero no ayudan
+                realmente a las personas que las usan.
+              </p>
+
+              <p>
+                Por eso decidimos construir nuestros propios productos,
+                entendiendo los problemas desde adentro. Esta experiencia nos
+                permite crear soluciones a medida con el mismo nivel de calidad
+                y atención al detalle.
+              </p>
+
+              <p className="text-white font-medium text-xl pt-4">
+                Nuestro objetivo: crear tecnología funcional, cercana y con
+                impacto real.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section id="contacto" className="py-20 bg-[#181a41]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section
+        id="contacto"
+        className="relative py-32 px-4 sm:px-6 lg:px-8 border-t border-white/10"
+      >
+        <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            className="space-y-8"
           >
-            <h2 className="text-4xl font-bold mb-6">
-              ¿Listo para transformar tu negocio?
-            </h2>
-            <p className="text-xl text-[#d7d7d7]/80 mb-8">
-              Conversemos sobre cómo podemos ayudarte a crear soluciones que
-              realmente funcionen
+            <h2 className="text-5xl font-bold">¿Listo para comenzar?</h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Conversemos sobre cómo podemos ayudarte a transformar tu negocio
+              con tecnología que realmente funciona.
             </p>
-            <a
-              href="mailto:contacto@kinexa.com"
-              className="bg-[#ff5b04] text-white px-8 py-4 rounded-md font-semibold hover:bg-[#ff5b04]/90 transition-colors inline-flex items-center"
-            >
-              Comenzar proyecto
-              <ArrowRight className="ml-2" size={20} />
-            </a>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+              <a
+                href="mailto:contacto@kinexa.com"
+                className="group inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-all text-lg"
+              >
+                Comenzar proyecto
+                <ArrowRight
+                  size={20}
+                  className="group-hover:translate-x-1 transition-transform"
+                />
+              </a>
+              <a
+                href="#productos"
+                className="inline-flex items-center gap-2 border border-white/20 px-8 py-4 rounded-lg font-medium hover:bg-white/5 transition-all text-lg"
+              >
+                Ver productos
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#0c0c0f] border-t border-[#ff5b04]/20 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-[#ff5b04] transform rotate-45"></div>
-                <span className="text-2xl font-bold text-white">kinexa</span>
+      <footer className="relative border-t border-white/10 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
+            {/* Brand */}
+            <div className="md:col-span-2 space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 bg-gradient-to-br from-[#ff5b04] to-[#ff8c42] transform rotate-45 rounded-sm"></div>
+                <span className="text-xl font-bold">kinexa</span>
               </div>
-              <p className="text-[#d7d7d7]/60">
-                Transformando ideas en soluciones digitales
+              <p className="text-gray-400 max-w-xs">
+                Transformando ideas en soluciones digitales que impulsan el
+                crecimiento de tu negocio.
               </p>
             </div>
 
+            {/* Products */}
             <div>
-              <h4 className="font-semibold mb-4 text-white">Productos</h4>
-              <ul className="space-y-2 text-[#d7d7d7]/60">
+              <h4 className="font-semibold mb-4">Productos</h4>
+              <ul className="space-y-3 text-sm text-gray-400">
                 <li>
-                  <a
-                    href="#"
-                    className="hover:text-[#ff5b04] transition-colors"
-                  >
+                  <a href="#" className="hover:text-white transition-colors">
                     NutriOne
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="hover:text-[#ff5b04] transition-colors"
-                  >
+                  <a href="#" className="hover:text-white transition-colors">
                     Kinexis
                   </a>
                 </li>
               </ul>
             </div>
 
+            {/* Company */}
             <div>
-              <h4 className="font-semibold mb-4 text-white">Servicios</h4>
-              <ul className="space-y-2 text-[#d7d7d7]/60">
+              <h4 className="font-semibold mb-4">Empresa</h4>
+              <ul className="space-y-3 text-sm text-gray-400">
                 <li>
                   <a
-                    href="#"
-                    className="hover:text-[#ff5b04] transition-colors"
+                    href="#nosotros"
+                    className="hover:text-white transition-colors"
                   >
-                    Desarrollo a medida
+                    Nosotros
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="hover:text-[#ff5b04] transition-colors"
+                    href="#contacto"
+                    className="hover:text-white transition-colors"
                   >
-                    Consultoría
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4 text-white">Contacto</h4>
-              <ul className="space-y-2 text-[#d7d7d7]/60">
-                <li>
-                  <a
-                    href="mailto:contacto@kinexa.com"
-                    className="hover:text-[#ff5b04] transition-colors"
-                  >
-                    contacto@kinexa.com
+                    Contacto
                   </a>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-[#ff5b04]/20 mt-12 pt-8 text-center text-[#d7d7d7]/60">
+          {/* Bottom */}
+          <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-400">
             <p>&copy; 2026 Kinexa. Todos los derechos reservados.</p>
+            <div className="flex gap-6">
+              <a href="#" className="hover:text-white transition-colors">
+                Privacidad
+              </a>
+              <a href="#" className="hover:text-white transition-colors">
+                Términos
+              </a>
+            </div>
           </div>
         </div>
       </footer>
